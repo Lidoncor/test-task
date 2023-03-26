@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Настольные компьютеры</title>
+</head>
+<body>
+<button onclick="window.location.href='/categories'">Категории</button>
+<br/><br/>
+<button onclick="window.location.href='/categories/desktop/new'">Создать</button>
+<br/><br/>
+<button onclick="window.location.href='/categories/desktop'">Показать всё</button>
+<br/><br/>
+<div style="color: red" th:if="${findError}" th:text="${findError}" ></div>
+<form th:method="POST" th:action="@{''}" th:object="${findId}">
+    <label for="idField">Найти по id</label>
+    <input type="number" th:field="*{id}" id="idField"/>
+    <input type="submit" value="Найти"/>
+</form>
+<br/>
+<table>
+    <tr>
+        <th>id</th>
+        <th>Номер серии</th>
+        <th>Производитель</th>
+        <th>Цена</th>
+        <th>Количество на складе</th>
+        <th>Форм-фактор</th>
+        <th>Удалить</th>
+        <th>Редактировать</th>
+    </tr>
+    <tr th:each="desktop : ${desktops}">
+        <td th:text="${desktop.getId()}"></td>
+        <td th:text="${desktop.getSerialNumber()}"></td>
+        <td th:text="${desktop.getManufacturer().getName()}"></td>
+        <td th:text="${desktop.getPrice()}"></td>
+        <td th:text="${desktop.getStockQuantity()}"></td>
+        <td th:text="${desktop.getFormFactor().getName()}"></td>
+        <td><a th:href="@{desktop/{id}/delete(id=${desktop.getId()})}">Удалить</a></td>
+        <td><a th:href="@{desktop/{id}/edit(id=${desktop.getId()})}">Редактировать</a></td>
+    </tr>
+</table>
+</body>
+</html>

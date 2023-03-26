@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ноутбуки</title>
+</head>
+<body>
+<button onclick="window.location.href='/categories'">Категории</button>
+<br/><br/>
+<button onclick="window.location.href='/categories/laptop/new'">Создать</button>
+<br/><br/>
+<button onclick="window.location.href='/categories/laptop'">Показать всё</button>
+<br/><br/>
+<div style="color: red" th:if="${findError}" th:text="${findError}" ></div>
+<form th:method="POST" th:action="@{''}" th:object="${findId}">
+    <label for="idField">Найти по id</label>
+    <input type="number" th:field="*{id}" id="idField"/>
+    <input type="submit" value="Найти"/>
+</form>
+<br/>
+<table>
+    <tr>
+        <th>id</th>
+        <th>Номер серии</th>
+        <th>Производитель</th>
+        <th>Цена</th>
+        <th>Количество на складе</th>
+        <th>Размер (дюйм)</th>
+        <th>Удалить</th>
+        <th>Редактировать</th>
+    </tr>
+    <tr th:each="laptop : ${laptops}">
+        <td th:text="${laptop.getId()}"></td>
+        <td th:text="${laptop.getSerialNumber()}"></td>
+        <td th:text="${laptop.getManufacturer().getName()}"></td>
+        <td th:text="${laptop.getPrice()}"></td>
+        <td th:text="${laptop.getStockQuantity()}"></td>
+        <td th:text="${laptop.getLaptopSize().getSize()}"></td>
+        <td><a th:href="@{laptop/{id}/delete(id=${laptop.getId()})}">Удалить</a></td>
+        <td><a th:href="@{laptop/{id}/edit(id=${laptop.getId()})}">Редактировать</a></td>
+    </tr>
+</table>
+</body>
+</html>

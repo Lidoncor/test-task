@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Мониторы</title>
+</head>
+<body>
+<button onclick="window.location.href='/categories'">Категории</button>
+<br/><br/>
+<button onclick="window.location.href='/categories/hdd/new'">Создать</button>
+<br/><br/>
+<button onclick="window.location.href='/categories/hdd'">Показать всё</button>
+<br/><br/>
+<div style="color: red" th:if="${findError}" th:text="${findError}" ></div>
+<form th:method="POST" th:action="@{''}" th:object="${findId}">
+    <label for="idField">Найти по id</label>
+    <input type="number" th:field="*{id}" id="idField"/>
+    <input type="submit" value="Найти"/>
+</form>
+<br/>
+<table>
+    <tr>
+        <th>id</th>
+        <th>Номер серии</th>
+        <th>Производитель</th>
+        <th>Цена</th>
+        <th>Количество на складе</th>
+        <th>Объём</th>
+        <th>Удалить</th>
+        <th>Редактировать</th>
+    </tr>
+    <tr th:each="hdd : ${hdds}">
+        <td th:text="${hdd.getId()}"></td>
+        <td th:text="${hdd.getSerialNumber()}"></td>
+        <td th:text="${hdd.getManufacturer().getName()}"></td>
+        <td th:text="${hdd.getPrice()}"></td>
+        <td th:text="${hdd.getStockQuantity()}"></td>
+        <td th:text="${hdd.getCapacity()}"></td>
+        <td><a th:href="@{hdd/{id}/delete(id=${hdd.getId()})}">Удалить</a></td>
+        <td><a th:href="@{hdd/{id}/edit(id=${hdd.getId()})}">Редактировать</a></td>
+    </tr>
+</table>
+</body>
+</html>

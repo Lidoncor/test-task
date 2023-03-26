@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/categories/desktop/{id}/edit(id = ${desktop.getId()})}" th:object="${desktop}">
+    <div style="color: red" th:if="${#fields.hasErrors('serialNumber')}" th:errors="*{serialNumber}"></div>
+    <label for="serialNumber">Номер серии</label>
+    <input type="number" th:field="*{serialNumber}" id="serialNumber"/>
+    <br/>
+    <label for="manufacturer">Производитель</label>
+    <select id="manufacturer" th:field="*{manufacturer}">
+        <option th:each="manufacturer : ${manufacturers}"
+                th:value="${manufacturer.getId()}"
+                th:text="${manufacturer.getName()}"
+                ></option>
+    </select>
+    <br/>
+    <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+    <label for="price">Цена</label>
+    <input type="number" th:field="*{price}" id="price"/>
+    <br/>
+    <div style="color: red" th:if="${#fields.hasErrors('stockQuantity')}" th:errors="*{stockQuantity}"></div>
+    <label for="stockQuantity">Количество на складе</label>
+    <input type="number" th:field="*{stockQuantity}" id="stockQuantity"/>
+    <br/>
+    <label for="formFactor">Форм-фактор</label>
+    <select id="formFactor" th:field="*{formFactor}">
+        <option th:each="formFactor : ${formFactors}"
+                th:value="${formFactor.getId()}"
+                th:text="${formFactor.getName()}"
+        ></option>
+    </select>
+    <br/>
+    <input type="submit" value="Обновить">
+</form>
+</body>
+</html>

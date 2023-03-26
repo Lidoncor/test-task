@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Новый товар</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/categories/hdd/new}" th:object="${hdd}">
+    <div style="color: red" th:if="${#fields.hasErrors('serialNumber')}" th:errors="*{serialNumber}"></div>
+    <label for="serialNumber">Номер серии</label>
+    <input type="number" th:field="*{serialNumber}" id="serialNumber"/>
+    <br/>
+    <label for="manufacturer">Производитель</label>
+    <select id="manufacturer" th:field="*{manufacturer}">
+        <option th:each="manufacturer : ${manufacturers}"
+                th:value="${manufacturer.getId()}"
+                th:text="${manufacturer.getName()}"
+        ></option>
+    </select>
+    <br/>
+    <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+    <label for="price">Цена</label>
+    <input type="number" th:field="*{price}" id="price"/>
+    <br/>
+    <div style="color: red" th:if="${#fields.hasErrors('stockQuantity')}" th:errors="*{stockQuantity}"></div>
+    <label for="stockQuantity">Количество на складе</label>
+    <input type="number" th:field="*{stockQuantity}" id="stockQuantity"/>
+    <br/>
+    <label for="capacity">Объём</label>
+    <input type="number" th:field="*{capacity}" id="capacity"/>
+    <br/>
+    <input type="submit" value="Создать">
+</form>
+</body>
+</html>
