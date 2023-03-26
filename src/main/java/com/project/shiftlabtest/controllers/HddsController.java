@@ -103,7 +103,7 @@ public class HddsController {
 
         hddRepository.save(hddToUpdate);
 
-        return "redirect:/categories/monitor";
+        return "redirect:/categories/hdd";
     }
 
 }
