@@ -26,8 +26,9 @@
     <label for="stockQuantity">Количество на складе</label>
     <input type="number" th:field="*{stockQuantity}" id="stockQuantity"/>
     <br/>
-    <label for="monitorSize">Размер (диагональ)</label>
-    <input type="number" th:field="*{size}" id="monitorSize"/>
+    <div style="color: red" th:if="${#fields.hasErrors('size')}" th:errors="*{size}"></div>
+    <label for="size">Размер (диагональ)</label>
+    <input type="number" th:field="*{size}" id="size"/>
     <br/>
     <input type="submit" value="Обновить">
 </form>
